@@ -26,35 +26,40 @@ class OrgUnitService implements OrgUnitServiceInterface
         $this->baseURL = $baseURL;
     }
     public function getOrgUnitUid($orgUnitUid, $format="XML"){
-        echo($format);
-        $this->orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint."/".$orgUnitUid;
-        echo($this->orgUnitEndPoint);
-        return $this->loginService->login($this->orgUnitEndPoint);
+        $format = $this->verifyFormat($format);
+
+        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint."/".$orgUnitUid.".".$this->verifyFormat($format);
+        echo($orgUnitEndPoint."\n");
+        return $this->loginService->login($orgUnitEndPoint);
     }
 
     public function getOrgUnits($format="XML")
     {
+        $format = $this->verifyFormat($format);
+        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".$this->verifyFormat($format);
+        echo($orgUnitEndPoint."\n");
+        return $this->loginService->login($orgUnitEndPoint);
+    }
+
+    public function getOrgUnitsByLevel($level, $format = "XML")
+    {
+        $format = $this->verifyFormat($format);
+        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".$this->verifyFormat($format)."?filter=level:eq:".$level;
+        echo($orgUnitEndPoint."\n");
+        return $this->loginService->login($orgUnitEndPoint);
+    }
+
+    public function getOrgUnitLevels($format = "XML")
+    {
+        $format = $this->verifyFormat($format);
+        $orgUnitLevelEndPoint = $this->baseURL.$this->orgUnitLevelEndPoint.".".$this->verifyFormat($format);
+        echo($orgUnitLevelEndPoint."\n");
+        return $this->loginService->login($orgUnitLevelEndPoint);
+    }
+    private function verifyFormat($format){
         if ($format != "JSON")
             $format = "XML";
 
-
-        $this->orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".$format;
-        echo($this->orgUnitEndPoint);
-        return $this->loginService->login($this->orgUnitEndPoint);
+        return $format;
     }
-
-    public function getOrgUnitsByLevel($level, $format)
-    {
-        $this->orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint."?filter=level:eq:".$level;
-        echo($this->orgUnitEndPoint);
-        return $this->loginService->login($this->orgUnitEndPoint);
-    }
-
-    public function getOrgUnitLevels($format)
-    {
-        $this->orgUnitLevelEndPoint = $this->baseURL.$this->orgUnitLevelEndPoint;
-        echo($this->orgUnitLevelEndPoint);
-        return $this->loginService->login($this->orgUnitLevelEndPoint);
-    }
-
 }

@@ -1,13 +1,11 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: mmwebaze
- * Date: 10/5/2016
+ * Written By: Michael Mwebaze
+ * Date: 10/18/2016
  * Time: 3:39 PM
  */
-/*require_once('services\LoginService.php');
-require_once('services\OrgUnitService.php');
-require_once('services\DataElementService.php');*/
+
 namespace dhis;
 
 use services\LoginService;
@@ -18,20 +16,31 @@ require_once ('services\LoginService.php');
 require_once('services\OrgUnitService.php');
 
 Class Main{
-    public function main(){
-        $baseURL = 'http://localhost:8181/dhis/api/';
-        $loginService = LoginService::instance('admin', 'district');
-        //$content = $login->login($api_url);
-        //echo($content);
+    private $baseURL;
+    public function __construct($baseURL)
+    {
+        $this->baseURL = $baseURL;
+        echo ("Base URL : ".$baseURL."\n");
+    }
 
-        $orgUnitService = new OrgUnitService($loginService, $baseURL);
-        //$content = $orgUnitService->getOrgUnitUid("Rp268JB6Ne4");
-        $content = $orgUnitService->getOrgUnits("CSV");
-        echo($content);
-        /*$dataElementService = new DataElementService();
-        $dataElementService->getDataElementByCode(34859, TRUE);*/
+    public function testOrgUnitServices(){
+        echo("Running Org Unit Services"."\n");
+        //$baseURL = 'http://localhost:8181/dhis/api/';
+        $loginService = LoginService::instance('admin', 'district');
+
+        $orgUnitService = new OrgUnitService($loginService, $this->baseURL);
+        $content = $orgUnitService->getOrgUnitUid("Rp268JB6Ne4");
+        echo($content."\n");
+        $content = $orgUnitService->getOrgUnits("JSON");
+        echo($content."\n");
+        $content = $orgUnitService->getOrgUnitLevels();
+        echo($content."\n");
+        $content = $orgUnitService->getOrgUnitsByLevel(1);
+        echo($content."\n");
+
+        echo("Org Unit Services complete"."\n");
     }
 }
 
-$main = new Main();
-$main->main();
+$main = new Main($baseURL = 'http://localhost:8181/dhis/api/');
+$main->testOrgUnitServices();
