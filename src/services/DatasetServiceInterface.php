@@ -11,6 +11,6 @@ namespace services;
 
 interface DatasetServiceInterface
 {
-    public function getDatasets($format);
-    public function getDatasetByCode($code, $format);
+    public function getDatasets($format, $isPaginated);
+    public function getDatasetByCode($code, $format, $isPaginated);
 }

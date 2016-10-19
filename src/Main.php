@@ -11,29 +11,29 @@ namespace dhis;
 use services\LoginService;
 use services\OrgUnitService;
 use util\ReadSecrets;
-use services\DataElementService;
+use services\DatasetService;
 
 require_once ('services\LoginService.php');
 require_once('services\OrgUnitService.php');
+require_once ('services\DatasetService.php');
 require_once ('util\ReadSecrets.php');
 
 Class Main{
     private $secrets;
+    private $loginService;
+
     public function __construct($secrets)
     {
         //$this->baseURL = $baseURL;
         echo ("Loading Secrets...\n");
         $this->secrets = $secrets;
+        $this->loginService = LoginService::instance($secrets['username'], $secrets['password']);
     }
 
     public function testOrgUnitServices(){
         echo("Running Org Unit Services"."\n");
-        //$baseURL = 'http://localhost:8181/dhis/api/';
 
-        //$loginService = LoginService::instance('admin', 'district');
-        $loginService = LoginService::instance($this->secrets['username'], $this->secrets['password']);
-
-        $orgUnitService = new OrgUnitService($loginService, $this->secrets['baseurl']);
+        $orgUnitService = new OrgUnitService($this->loginService, $this->secrets['baseurl']);
         $content = $orgUnitService->getOrgUnitUid("Rp268JB6Ne4","JSON", FALSE);
         echo($content."\n");
         echo("*******************************************************************************\n");
@@ -48,7 +48,18 @@ Class Main{
 
         echo("Org Unit Services complete"."\n");
     }
+    public function testDatasetServices(){
+        echo("Running Dataset Services"."\n");
+        $datasetService = new DatasetService($this->loginService, $this->secrets['baseurl']);
+        $content = $datasetService->getDatasets("JSON");
+        echo($content."\n");
+        echo("*******************************************************************************\n");
+        $content = $datasetService->getDatasetByCode("lyLU2wR22tC", "JSON", FALSE);
+        echo($content."\n");
+        echo("Org Unit Services complete"."\n");
+    }
 }
 $secrets = ReadSecrets::loadSecrets();
 $main = new Main($secrets);
-$main->testOrgUnitServices();
+//$main->testOrgUnitServices();
+$main->testDatasetServices();

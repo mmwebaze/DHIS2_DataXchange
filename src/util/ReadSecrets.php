@@ -12,7 +12,7 @@ namespace util;
 class ReadSecrets
 {
     public static function loadSecrets(){
-        $loadSecrets = file_get_contents("secrets.json");
+        $loadSecrets = file_get_contents("secrets_remote.json");
         $secrets = json_decode($loadSecrets, true);
 
         return $secrets;

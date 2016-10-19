@@ -36,7 +36,7 @@ class OrgUnitService implements OrgUnitServiceInterface
     public function getOrgUnits($format="XML", $isPaginated=TRUE)
     {
         //$format = $this->verifyFormat($format);
-        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".Validator::verifyFormat($format);
+        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($orgUnitEndPoint);
     }
 
