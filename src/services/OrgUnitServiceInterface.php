@@ -10,6 +10,7 @@ namespace services;
 
 interface OrgUnitServiceInterface
 {
+    public function getOrgUnitsByCode($code, $format, $isPaginated);
     public function getOrgUnits($format, $isPaginated);
     public function getOrgUnitsByLevel($level, $format, $isPaginated);
     public function getOrgUnitLevels($format, $isPaginated);

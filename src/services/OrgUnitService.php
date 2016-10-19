@@ -27,9 +27,9 @@ class OrgUnitService implements OrgUnitServiceInterface
         //$this->orgUnitEndPoint = $baseURL.$this->orgUnitEndPoint;
         $this->baseURL = $baseURL;
     }
-    public function getOrgUnitUid($orgUnitUid, $format="XML", $isPaginated=TRUE){
+    public function getOrgUnitsByCode($code, $format="XML", $isPaginated=TRUE){
         //$format = $this->verifyFormat($format);
-        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint."/".$orgUnitUid.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
+        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint."/".$code.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($orgUnitEndPoint);
     }
 

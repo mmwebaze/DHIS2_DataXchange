@@ -12,10 +12,12 @@ use services\LoginService;
 use services\OrgUnitService;
 use util\ReadSecrets;
 use services\DatasetService;
+use services\DataElementService;
 
 require_once ('services\LoginService.php');
 require_once('services\OrgUnitService.php');
 require_once ('services\DatasetService.php');
+require_once ('services\DataElementService.php');
 require_once ('util\ReadSecrets.php');
 
 Class Main{
@@ -24,7 +26,6 @@ Class Main{
 
     public function __construct($secrets)
     {
-        //$this->baseURL = $baseURL;
         echo ("Loading Secrets...\n");
         $this->secrets = $secrets;
         $this->loginService = LoginService::instance($secrets['username'], $secrets['password']);
@@ -34,7 +35,7 @@ Class Main{
         echo("Running Org Unit Services"."\n");
 
         $orgUnitService = new OrgUnitService($this->loginService, $this->secrets['baseurl']);
-        $content = $orgUnitService->getOrgUnitUid("Rp268JB6Ne4","JSON", FALSE);
+        $content = $orgUnitService->getOrgUnitsByCode("Rp268JB6Ne4","JSON", FALSE);
         echo($content."\n");
         echo("*******************************************************************************\n");
         $content = $orgUnitService->getOrgUnits("JSON", FALSE);
@@ -56,10 +57,26 @@ Class Main{
         echo("*******************************************************************************\n");
         $content = $datasetService->getDatasetByCode("lyLU2wR22tC", "JSON", FALSE);
         echo($content."\n");
-        echo("Org Unit Services complete"."\n");
+        echo("Dataset Services complete"."\n");
+    }
+    public function testDataElementServices(){
+        echo("Running Data Element Services"."\n");
+        $dataElementService = new DataElementService($this->loginService, $this->secrets['baseurl']);
+        $content = $dataElementService->getDataElementByCode("FTRrcoaog83", "JSON", FALSE);
+        echo($content."\n");
+        echo("*******************************************************************************\n");
+        $content = $dataElementService->getDataElements("JSON", FALSE);
+        echo($content."\n");
+        echo("*******************************************************************************\n");
+        $content = $dataElementService->getDatasetDataElements("lyLU2wR22tC", "JSON", FALSE);
+        echo($content."\n");
+        echo("*******************************************************************************\n");
+        //$content = $dataElementService->getDataElementValues($dataElementCodes = array(), $periods = array(), $orgUnits = array());
+        echo("Data Element Services complete"."\n");
     }
 }
 $secrets = ReadSecrets::loadSecrets();
 $main = new Main($secrets);
 //$main->testOrgUnitServices();
-$main->testDatasetServices();
+//$main->testDatasetServices();
+$main->testDataElementServices();

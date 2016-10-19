@@ -10,8 +10,8 @@ namespace services;
 
 interface DataElementServiceInterface
 {
-    public function getDataElementByCode($code, $format);
-    public function getDataElements($format);
-    public function getDatasetDataElements($datasetCode, $format);
+    public function getDataElementByCode($code, $format, $isPaginated);
+    public function getDataElements($format, $isPaginated);
+    public function getDatasetDataElements($datasetCode, $format, $isPaginated);
     public function getDataElementValues($dataElementCodes = array(), $periods = array(), $orgUnits = array());
 }

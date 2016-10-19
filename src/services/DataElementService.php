@@ -9,21 +9,40 @@
 /*require_once('IDataElementService.php');*/
 namespace services;
 
+use util\Validator;
+
+require_once ('DataElementServiceInterface.php');
+require_once ('util\Validator.php');
+
 class DataElementService implements DataElementServiceInterface
 {
-    public function getDataElementByCode($code, $format)
+    private $loginService;
+    private $dataElementEndPoint = "dataElements";
+    private $datasetEndPoint = "dataSets";
+    private $baseURL;
+
+    public function __construct($loginService, $baseURL)
     {
-        // TODO: Implement getDataElementByCode() method.
+        $this->loginService = $loginService;
+        $this->baseURL = $baseURL;
     }
 
-    public function getDataElements($format)
+    public function getDataElementByCode($code, $format, $isPaginated = TRUE)
     {
-        // TODO: Implement getDataElements() method.
+        $dataElementEndPoint = $this->baseURL.$this->dataElementEndPoint."/".$code.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
+        return $this->loginService->login($dataElementEndPoint);
     }
 
-    public function getDatasetDataElements($datasetCode, $format)
+    public function getDataElements($format, $isPaginated = TRUE)
     {
-        // TODO: Implement getDatasetDataElements() method.
+        $dataElementEndPoint = $this->baseURL.$this->dataElementEndPoint.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
+        return $this->loginService->login($dataElementEndPoint);
+    }
+
+    public function getDatasetDataElements($datasetCode, $format, $isPaginated = TRUE)
+    {
+        $dataElementEndPoint = $this->baseURL.$this->dataElementEndPoint."/".$datasetCode.".".Validator::verifyFormat($format)."?fields=dataSetElements[id,displayName]&paging=".Validator::verifyPagination($isPaginated);
+        return $this->loginService->login($datasetEndPoint);
     }
 
     public function getDataElementValues($dataElementCodes = array(), $periods = array(), $orgUnits = array())
