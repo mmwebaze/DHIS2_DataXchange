@@ -9,7 +9,10 @@
 /*require_once ('IOrganisationUnitService.php');*/
 namespace services;
 
+use util\Validator;
+
 require_once ('OrgUnitServiceInterface.php');
+require_once ('util\Validator.php');
 
 class OrgUnitService implements OrgUnitServiceInterface
 {
@@ -17,7 +20,6 @@ class OrgUnitService implements OrgUnitServiceInterface
     private $orgUnitEndPoint = "organisationUnits";
     private $orgUnitLevelEndPoint = "organisationUnitLevels";
     private $baseURL;
-    private $isPaginated = TRUE;
 
     public function __construct($loginService, $baseURL)
     {
@@ -25,41 +27,29 @@ class OrgUnitService implements OrgUnitServiceInterface
         //$this->orgUnitEndPoint = $baseURL.$this->orgUnitEndPoint;
         $this->baseURL = $baseURL;
     }
-    public function getOrgUnitUid($orgUnitUid, $format="XML"){
-        $format = $this->verifyFormat($format);
-
-        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint."/".$orgUnitUid.".".$this->verifyFormat($format);
-        echo($orgUnitEndPoint."\n");
+    public function getOrgUnitUid($orgUnitUid, $format="XML", $isPaginated=TRUE){
+        //$format = $this->verifyFormat($format);
+        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint."/".$orgUnitUid.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($orgUnitEndPoint);
     }
 
-    public function getOrgUnits($format="XML")
+    public function getOrgUnits($format="XML", $isPaginated=TRUE)
     {
-        $format = $this->verifyFormat($format);
-        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".$this->verifyFormat($format);
-        echo($orgUnitEndPoint."\n");
+        //$format = $this->verifyFormat($format);
+        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".Validator::verifyFormat($format);
         return $this->loginService->login($orgUnitEndPoint);
     }
 
-    public function getOrgUnitsByLevel($level, $format = "XML")
+    public function getOrgUnitsByLevel($level, $format = "XML", $isPaginated=TRUE)
     {
-        $format = $this->verifyFormat($format);
-        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".$this->verifyFormat($format)."?filter=level:eq:".$level;
-        echo($orgUnitEndPoint."\n");
+        //$format = $this->verifyFormat($format);
+        $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint.".".Validator::verifyFormat($format)."?filter=level:eq:".$level."&fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($orgUnitEndPoint);
     }
 
-    public function getOrgUnitLevels($format = "XML")
+    public function getOrgUnitLevels($format = "XML", $isPaginated=TRUE)
     {
-        $format = $this->verifyFormat($format);
-        $orgUnitLevelEndPoint = $this->baseURL.$this->orgUnitLevelEndPoint.".".$this->verifyFormat($format);
-        echo($orgUnitLevelEndPoint."\n");
+        $orgUnitLevelEndPoint = $this->baseURL.$this->orgUnitLevelEndPoint.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($orgUnitLevelEndPoint);
-    }
-    private function verifyFormat($format){
-        if ($format != "JSON")
-            $format = "XML";
-
-        return $format;
     }
 }

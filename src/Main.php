@@ -34,13 +34,16 @@ Class Main{
         $loginService = LoginService::instance($this->secrets['username'], $this->secrets['password']);
 
         $orgUnitService = new OrgUnitService($loginService, $this->secrets['baseurl']);
-        $content = $orgUnitService->getOrgUnitUid("Rp268JB6Ne4");
+        $content = $orgUnitService->getOrgUnitUid("Rp268JB6Ne4","JSON", FALSE);
         echo($content."\n");
-        $content = $orgUnitService->getOrgUnits("JSON");
+        echo("*******************************************************************************\n");
+        $content = $orgUnitService->getOrgUnits("JSON", FALSE);
         echo($content."\n");
-        $content = $orgUnitService->getOrgUnitLevels();
+        echo("*******************************************************************************\n");
+        $content = $orgUnitService->getOrgUnitLevels("JSON", FALSE);
         echo($content."\n");
-        $content = $orgUnitService->getOrgUnitsByLevel(1);
+        echo("*******************************************************************************\n");
+        $content = $orgUnitService->getOrgUnitsByLevel(1, "XML", FALSE);
         echo($content."\n");
 
         echo("Org Unit Services complete"."\n");
