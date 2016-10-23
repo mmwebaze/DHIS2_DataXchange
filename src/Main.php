@@ -10,7 +10,7 @@ namespace dhis;
 
 use services\LoginService;
 use services\OrgUnitService;
-use util\ReadSecrets;
+use util\ReadFile;
 use services\DatasetService;
 use services\DataElementService;
 
@@ -18,7 +18,7 @@ require_once ('services\LoginService.php');
 require_once('services\OrgUnitService.php');
 require_once ('services\DatasetService.php');
 require_once ('services\DataElementService.php');
-require_once ('util\ReadSecrets.php');
+require_once ('util\ReadFile.php');
 
 Class Main{
     private $secrets;
@@ -75,7 +75,7 @@ Class Main{
         echo("Data Element Services complete"."\n");
     }
 }
-$secrets = ReadSecrets::loadSecrets();
+$secrets = ReadFile::loadJsonFile("secrets_remote.json");
 $main = new Main($secrets);
 //$main->testOrgUnitServices();
 //$main->testDatasetServices();
