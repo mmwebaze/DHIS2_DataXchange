@@ -1,0 +1,75 @@
+{
+  "periods": [{
+    "id": "THIS_WEEK",
+    "textValue": "This Week"
+  }, {
+    "id": "LAST_WEEK",
+    "textValue": "Last Week"
+  }, {
+    "id": "LAST_4_WEEKS",
+    "textValue": "Last 4 Weeks"
+  }, {
+    "id": "LAST_12_WEEKS",
+    "textValue": "Last 12 Weeks"
+  }, {
+    "id": "LAST_52_WEEKS",
+    "textValue": "Last 52 Weeks"
+  }, {
+    "id": "LAST_MONTH",
+    "textValue": "Last Month"
+  }, {
+    "id": "LAST_3_MONTHS",
+    "textValue": "Last 3 Months"
+  }, {
+    "id": "LAST_12_MONTHS",
+    "textValue": "Last 12 Months"
+  }, {
+    "id": "MONTHS_THIS_YEAR",
+    "textValue": "Months this Year"
+  }, {
+    "id": "MONTHS_LAST_YEAR",
+    "textValue": "Months Last Year"
+  }, {
+    "id": "LAST_QUARTER",
+    "textValue": "Last Quarter"
+  }, {
+    "id": "LAST_4_QUARTERS",
+    "textValue": "Last 4 Quarters"
+  }, {
+    "id": "QUARTERS_THIS_YEAR",
+    "textValue": "Quarters this Year"
+  }, {
+    "id": "QUARTERS_LAST_YEAR",
+    "textValue": "Quarters last Year"
+  }, {
+    "id": "LAST_BIMONTH",
+    "textValue": "Last Bi-Month"
+  }, {
+    "id": "LAST_6_BIMONTHS",
+    "textValue": "Last 6 Bi-Months"
+  }, {
+    "id": "LAST_SIX_MONTH",
+    "textValue": "Last 6 Months"
+  }, {
+    "id": "LAST_2_SIXMONTHS",
+    "textValue": "Last 2 Sixt Months"
+  }, {
+    "id": "THIS_FINANCIAL_YEAR",
+    "textValue": "This Financial Year"
+  }, {
+    "id": "LAST_FINANCIAL_YEAR",
+    "textValue": "Last Financial Year"
+  }, {
+    "id": "LAST_5_FINANCIAL_YEARS",
+    "textValue": "Last 5 Financial Years"
+  }, {
+    "id": "THIS_YEAR",
+    "textValue": "This Year"
+  }, {
+    "id": "LAST_YEAR",
+    "textValue": "Last Year"
+  }, {
+    "id": "LAST_5_YEARS",
+    "textValue": "Last 5 Years"
+  }]
+}

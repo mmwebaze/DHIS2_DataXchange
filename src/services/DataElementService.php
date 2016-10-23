@@ -6,7 +6,7 @@
  * Date: 10/5/2016
  * Time: 2:48 PM
  */
-/*require_once('IDataElementService.php');*/
+
 namespace services;
 
 use util\Validator;
@@ -42,7 +42,7 @@ class DataElementService implements DataElementServiceInterface
     public function getDatasetDataElements($datasetCode, $format, $isPaginated = TRUE)
     {
         $dataElementEndPoint = $this->baseURL.$this->dataElementEndPoint."/".$datasetCode.".".Validator::verifyFormat($format)."?fields=dataSetElements[id,displayName]&paging=".Validator::verifyPagination($isPaginated);
-        return $this->loginService->login($datasetEndPoint);
+        return $this->loginService->login($dataElementEndPoint);
     }
 
     public function getDataElementValues($dataElementCodes = array(), $periods = array(), $orgUnits = array())
