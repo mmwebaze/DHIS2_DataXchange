@@ -25,15 +25,15 @@ class DatasetService implements DatasetServiceInterface
         $this->baseURL = $baseURL;
     }
 
-    public function getDatasets($format, $isPaginated=TRUE)
+    public function getDatasets($isPaginated=TRUE, $format="JSON")
     {
         $datasetEndPoint = $this->baseURL.$this->datasetEndPoint.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($datasetEndPoint);
     }
 
-    public function getDatasetByCode($code, $format, $isPaginated=TRUE)
+    public function getDatasetByCode($code, $format="JSON")
     {
-        $datasetEndPoint = $this->baseURL.$this->datasetEndPoint."/".$code.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
+        $datasetEndPoint = $this->baseURL.$this->datasetEndPoint."/".$code.".".Validator::verifyFormat($format)."?fields=id,displayName";
         return $this->loginService->login($datasetEndPoint);
     }
 

@@ -52,7 +52,6 @@ final class LoginService
         $header = array();
         $header[] = 'Content-length: 0';
         $header[] = 'Content-type: application/json';
-        #$header[] = 'Authorization: Basic '. base64_encode("$username:$password");
         return $header;
     }
     private function isSessionAlive(){
@@ -60,7 +59,3 @@ final class LoginService
         return $this->isSessionAlive;
     }
 }
-/*$api_url = 'http://localhost:8181/dhis/api/organisationUnits.json';
-$loginService = LoginService::instance('admin', 'district');
-$content = $loginService->login($api_url);
-echo $content;*/

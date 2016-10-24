@@ -27,21 +27,21 @@ class DataElementService implements DataElementServiceInterface
         $this->baseURL = $baseURL;
     }
 
-    public function getDataElementByCode($code, $format, $isPaginated = TRUE)
+    public function getDataElementByCode($code, $format="JSON")
     {
-        $dataElementEndPoint = $this->baseURL.$this->dataElementEndPoint."/".$code.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
+        $dataElementEndPoint = $this->baseURL.$this->dataElementEndPoint."/".$code.".".Validator::verifyFormat($format)."?fields=id,displayName";
         return $this->loginService->login($dataElementEndPoint);
     }
 
-    public function getDataElements($format, $isPaginated = TRUE)
+    public function getDataElements($isPaginated = TRUE, $format="JSON")
     {
         $dataElementEndPoint = $this->baseURL.$this->dataElementEndPoint.".".Validator::verifyFormat($format)."?fields=id,displayName&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($dataElementEndPoint);
     }
 
-    public function getDatasetDataElements($datasetCode, $format, $isPaginated = TRUE)
+    public function getDatasetDataElements($datasetCode, $isPaginated = TRUE, $format="JSON")
     {
-        $dataElementEndPoint = $this->baseURL.$this->dataElementEndPoint."/".$datasetCode.".".Validator::verifyFormat($format)."?fields=dataSetElements[id,displayName]&paging=".Validator::verifyPagination($isPaginated);
+        $dataElementEndPoint = $this->baseURL."23/".$this->dataElementEndPoint."/".$datasetCode.".".Validator::verifyFormat($format)."?fields=dataSetElements[id,displayName]&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($dataElementEndPoint);
     }
 
