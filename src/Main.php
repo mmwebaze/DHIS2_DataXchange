@@ -14,11 +14,11 @@ use util\ReadFile;
 use services\DatasetService;
 use services\DataElementService;
 
-require_once ('services\LoginService.php');
-require_once('services\OrgUnitService.php');
-require_once ('services\DatasetService.php');
-require_once ('services\DataElementService.php');
-require_once ('util\ReadFile.php');
+require_once ('services/LoginService.php');
+require_once('services/OrgUnitService.php');
+require_once ('services/DatasetService.php');
+require_once ('services/DataElementService.php');
+require_once ('util/ReadFile.php');
 
 Class Main{
     private $secrets;
