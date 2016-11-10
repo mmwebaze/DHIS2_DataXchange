@@ -10,9 +10,11 @@
 namespace services;
 
 use util\Validator;
+use util\ArrayImploder;
 
 require_once ('DataElementServiceInterface.php');
 require_once ('util/Validator.php');
+require_once ('util/ArrayImploder.php');
 
 class DataElementService implements DataElementServiceInterface
 {
@@ -41,13 +43,17 @@ class DataElementService implements DataElementServiceInterface
 
     public function getDatasetDataElements($datasetCode, $isPaginated = TRUE, $format="JSON")
     {
-        $dataElementEndPoint = $this->baseURL."23/".$this->dataElementEndPoint."/".$datasetCode.".".Validator::verifyFormat($format)."?fields=dataSetElements[id,displayName]&paging=".Validator::verifyPagination($isPaginated);
+        //$dataElementEndPoint = $this->baseURL."23/".$this->dataElementEndPoint."/".$datasetCode.".".Validator::verifyFormat($format)."?fields=dataSetElements[id,displayName]&paging=".Validator::verifyPagination($isPaginated);
+        $dataElementEndPoint = $this->baseURL.$this->datasetEndPoint."/".$datasetCode.".".Validator::verifyFormat($format)."?fields=dataSetElements[dataElement[id,code,name]]&paging=".Validator::verifyPagination($isPaginated);
         return $this->loginService->login($dataElementEndPoint);
     }
 
     public function getDataElementValues($dataElementCodes = array(), $periods = array(), $orgUnits = array())
     {
-        // TODO: Implement getDataElementValues() method.
+        $analytics = $this->baseURL.'analytics.json?dimension=dx:'. ArrayImploder::implodeArray($dataElementCodes) . '&dimension=pe:' .ArrayImploder::implodeArray($periods). '&dimension=ou:' .ArrayImploder::implodeArray($orgUnits);
+        echo $analytics;
+
+        return $this->loginService->login($analytics);
     }
 
 }

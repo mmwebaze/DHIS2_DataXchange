@@ -36,6 +36,8 @@ final class LoginService
         //$r = var_dump(json_decode($result));
         #print($r);
 
+        //return json_decode($result, true);
+
         return $result;
     }
     public static function instance($username, $password){
