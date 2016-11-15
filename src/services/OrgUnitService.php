@@ -19,6 +19,7 @@ class OrgUnitService implements OrgUnitServiceInterface
     private $loginService;
     private $orgUnitEndPoint = "organisationUnits";
     private $orgUnitLevelEndPoint = "organisationUnitLevels";
+    private $orgUnitGroupEndPoint = "organisationUnitGroups";
     private $baseURL;
 
     public function __construct($loginService, $baseURL)
@@ -54,5 +55,13 @@ class OrgUnitService implements OrgUnitServiceInterface
     public function getOrgUnitAncestry($code, $format = "JSON"){
         $orgUnitEndPoint = $this->baseURL.$this->orgUnitEndPoint."/".$code.".".Validator::verifyFormat($format)."?fields=id,displayName,children[id,displayName],ancestors[id,displayName]";
         return $this->loginService->login($orgUnitEndPoint);
+    }
+    public function getOrgUnitGroups($isPaginated=TRUE, $format = "JSON"){
+        $orgUnitGroupEndPoint = $this->baseURL.$this->orgUnitGroupEndPoint.".".Validator::verifyFormat($format)."?fields=id,code,displayName&paging=".Validator::verifyPagination($isPaginated);
+        return $this->loginService->login($orgUnitGroupEndPoint);
+    }
+    public function getOrgUnitsByGroup($orgUnitGroupUid, $format = "JSON"){
+        $orgUnitGroupEndPoint = $this->baseURL.$this->orgUnitGroupEndPoint."/".$orgUnitGroupUid.".".Validator::verifyFormat($format)."?fields=organisationUnits[id,displayName]";
+        return $this->loginService->login($orgUnitGroupEndPoint);
     }
 }

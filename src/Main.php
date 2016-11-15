@@ -43,14 +43,14 @@ Class Main{
         $content = $orgUnitService->getOrgUnits();
         echo($content."\n");
         echo("*******************************************************************************\n");*/
-        $content = $orgUnitService->getOrgUnitLevels(FALSE);
+        //$content = $orgUnitService->getOrgUnitLevels(FALSE);
         //echo($content."\n");
         //echo(json_decode($content, true)['organisationUnitLevels'][0]['displayName']);
-        $response = json_decode($content, true);
+        /*$response = json_decode($content, true);
         $myArray = $response['organisationUnitLevels'];
         foreach ($myArray as $key => $value){
             echo($myArray[$key]['displayName']."\n");
-        }
+        }*/
         //$cout = json_decode($content);
         //var_dump($cout["organisationUnitLevels"]);
         /*echo("*******************************************************************************\n");
@@ -60,7 +60,11 @@ Class Main{
         echo("*******************************************************************************\n");
         $content = $orgUnitService->getOrgUnitAncestry("Rp268JB6Ne4");
         echo($content."\n");*/
-
+        $content = $orgUnitService->getOrgUnitGroups(FALSE);
+        echo($content."\n");
+        echo("*******************************************************************************\n");
+        $content = $orgUnitService->getOrgUnitsByGroup('CXw2yu5fodb');
+        echo($content);
         echo("Org Unit Services complete"."\n");
     }
     public function testDatasetServices(){
@@ -104,6 +108,6 @@ Class Main{
 }
 $secrets = ReadFile::loadJsonFile("secrets_remote.json");
 $main = new Main($secrets);
-//$main->testOrgUnitServices();
+$main->testOrgUnitServices();
 //$main->testDatasetServices();
-$main->testDataElementServices();
+//$main->testDataElementServices();

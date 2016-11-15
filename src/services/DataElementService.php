@@ -55,5 +55,4 @@ class DataElementService implements DataElementServiceInterface
 
         return $this->loginService->login($analytics);
     }
-
 }

@@ -21,7 +21,6 @@ final class LoginService
         $this->password = $password;
     }
     public function login($url){
-        echo("-> ".$url."\n");
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
