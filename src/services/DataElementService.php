@@ -50,7 +50,8 @@ class DataElementService implements DataElementServiceInterface
 
     public function getDataElementValues($dataElementCodes = array(), $periods = array(), $orgUnits = array())
     {
-        $analytics = $this->baseURL.'analytics.json?dimension=dx:'. ArrayImploder::implodeArray($dataElementCodes) . '&dimension=pe:' .ArrayImploder::implodeArray($periods). '&dimension=ou:' .ArrayImploder::implodeArray($orgUnits);
+        $analyticsConfig = '&tableLayout=true&columns=dx;ou&rows=pe&hideEmptyRows=true';
+        $analytics = $this->baseURL.'analytics.json?dimension=dx:'. ArrayImploder::implodeArray($dataElementCodes) . '&dimension=pe:' .ArrayImploder::implodeArray($periods). '&dimension=ou:' .ArrayImploder::implodeArray($orgUnits).$analyticsConfig;
         echo $analytics;
 
         return $this->loginService->login($analytics);

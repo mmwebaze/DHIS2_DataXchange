@@ -78,9 +78,9 @@ Class Main{
         echo("Dataset Services complete"."\n");
     }
     public function testDataElementServices(){
-        $orgUnits = array('lc3eMKXaEfw', 'PMa2VCrupOd');
-        $dataElementCodes = array('eTDtyyaSA7f');
-        $periods = array('LAST_12_MONTHS');
+        $orgUnits = array('lc3eMKXaEfw');
+        $dataElementCodes = array('s46m5MS0hxu');
+        $periods = array('201501','201502','201503','201504','201505','201506','201507','201508','201509','201510','201511','201512');
 
         echo("Running Data Element Services"."\n");
         $dataElementService = new DataElementService($this->loginService, $this->secrets['baseurl']);
@@ -90,7 +90,7 @@ Class Main{
         $content = $dataElementService->getDataElements(FALSE);
         echo($content."\n");
         echo("*******************************************************************************\n");*/
-        $content = $dataElementService->getDatasetDataElements("N4fIX1HL3TQ", FALSE);
+       /* $content = $dataElementService->getDatasetDataElements("N4fIX1HL3TQ", FALSE);
         echo($content);
         $response = json_decode($content, true);
         $myArray = $response['dataSetElements'];
@@ -98,16 +98,16 @@ Class Main{
         foreach ($myArray as $key => $value){
             echo($key."\n");
             echo($key." - ". $value['dataElement']['code']." -> ".$value['dataElement']['name']." -> ".$value['dataElement']['id']."\n");
-        }
-        /*echo($content."\n");
+        }*/
+        //echo($content."\n");
         echo("*******************************************************************************\n");
         $content = $dataElementService->getDataElementValues($dataElementCodes, $periods, $orgUnits);
         echo($content."\n");
-        echo("Data Element Services complete"."\n");*/
+        echo("Data Element Services complete"."\n");
     }
 }
 $secrets = ReadFile::loadJsonFile("secrets_remote.json");
 $main = new Main($secrets);
-$main->testOrgUnitServices();
+//$main->testOrgUnitServices();
 //$main->testDatasetServices();
-//$main->testDataElementServices();
+$main->testDataElementServices();
